@@ -36,9 +36,15 @@ class IpgeobaseTest < Minitest::Test
 
     stub_http_request(@valid_ip, body)
 
+    expected = OpenStruct.new(city: 'Ashburn',
+                              country: 'United States',
+                              country_code: 'US',
+                              lat: '39.03',
+                              lon: '-77.5')
+
     response = Ipgeobase.lookup(@valid_ip)
 
-    assert_equal 'success', response.status
+    assert_equal expected, response
   end
 
   def test_failed_request

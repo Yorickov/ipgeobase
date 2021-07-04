@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'ostruct'
 require_relative 'ipgeobase/version'
 require_relative 'ipgeobase/http_service'
 
@@ -10,10 +11,22 @@ module Ipgeobase
 
   class Error < StandardError; end
 
-  def self.lookup(ip)
-    response = HttpService.new(ip).call
-    return FAILED_MESSAGE unless response
+  class << self
+    def lookup(ip)
+      response = HttpService.new(ip).call
+      return FAILED_MESSAGE unless response
 
-    response
+      format_result(response)
+    end
+
+    private
+
+    def format_result(res)
+      OpenStruct.new(city: res.city,
+                     country: res.country,
+                     country_code: res.country_code,
+                     lat: res.lat,
+                     lon: res.lon)
+    end
   end
 end
