@@ -6,6 +6,9 @@ require 'happymapper'
 
 module Ipgeobase
   class HttpService
+    URL = 'http://ip-api.com'
+    RESPONSE_FORMAT = 'xml'
+
     def initialize(ip)
       @client = Net::HTTP
       @xml_parser = HappyMapper

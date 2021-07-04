@@ -5,8 +5,6 @@ require_relative 'ipgeobase/version'
 require_relative 'ipgeobase/http_service'
 
 module Ipgeobase
-  URL = 'http://ip-api.com'
-  RESPONSE_FORMAT = 'xml'
   FAILED_MESSAGE = 'Invalid IP'
 
   class Error < StandardError; end
