@@ -3,13 +3,9 @@
 
 # Ipgeobase
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ipgeobase`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This gem is a wrapper of service [ip-api.com](http://ip-api.com), it allows to get short information in friendly format about geo-location via IP.
 
 ## Installation
-
-Add this line to your application's Gemfile:
 
 ```ruby
 gem 'ipgeobase'
@@ -25,13 +21,21 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+Ipgeobase.lookup('<IP address>')
+```
 
-## Development
+## Example
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```ruby
+response = Ipgeobase.lookup('8.8.8.8')
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+response.city # Ashburn
+response.country # United States
+response.countryCode # US
+response.lat # 39.03
+response.lon # -77.5
+```
 
 ## Contributing
 

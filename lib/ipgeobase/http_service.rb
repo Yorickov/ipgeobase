@@ -13,8 +13,9 @@ module Ipgeobase
     end
 
     def call
-      row_response = request
-      response = xml_parser.parse(row_response)
+      row_response = make_request
+      response = parse(row_response)
+
       success?(response) ? response : false
     end
 
@@ -28,8 +29,12 @@ module Ipgeobase
       uri
     end
 
-    def request
+    def make_request
       client.get(prepared_uri)
+    end
+
+    def parse(data)
+      xml_parser.parse(data)
     end
 
     def success?(response)
