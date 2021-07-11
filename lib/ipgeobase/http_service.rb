@@ -10,9 +10,10 @@ module Ipgeobase
     RESPONSE_FORMAT = 'xml'
 
     def initialize(ip)
-      @client = Net::HTTP
-      @xml_parser = HappyMapper
       @ip = ip
+
+      @client = setup_client
+      @xml_parser = setup_parser
     end
 
     def call
@@ -42,6 +43,14 @@ module Ipgeobase
 
     def success?(response)
       response.status == 'success'
+    end
+
+    def setup_client
+      Net::HTTP
+    end
+
+    def setup_parser
+      HappyMapper
     end
   end
 end
