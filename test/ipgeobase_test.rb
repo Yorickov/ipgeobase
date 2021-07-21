@@ -15,25 +15,7 @@ class IpgeobaseTest < Minitest::Test
   end
 
   def test_success_request
-    body =
-      '<?xml version="1.0" encoding="UTF-8"?>' \
-      '<query>' \
-      '<status>success</status>' \
-      '<country>United States</country>' \
-      '<countryCode>US</countryCode>' \
-      '<region>VA</region>' \
-      '<regionName>Virginia</regionName>' \
-      '<city>Ashburn</city>' \
-      '<zip>20149</zip>' \
-      '<lat>39.03</lat>' \
-      '<lon>-77.5</lon>' \
-      '<timezone>America/New_York</timezone>' \
-      '<isp>Google LLC</isp>' \
-      '<org>Google Public DNS</org>' \
-      '<as>AS15169 Google LLC</as>' \
-      "<query>#{@valid_ip}</query>" \
-      '</query>'
-
+    body = File.read(File.expand_path('./fixtures/success_response.xml', __dir__))
     stub_http_request(@valid_ip, body)
 
     expected = OpenStruct.new(city: 'Ashburn',
@@ -48,14 +30,7 @@ class IpgeobaseTest < Minitest::Test
   end
 
   def test_failed_request
-    body =
-      '<?xml version="1.0" encoding="UTF-8"?>' \
-      '<query>' \
-      '<status>fail</status>' \
-      '<message>invalid query</message>' \
-      "<query>#{@invalid_ip}</query>" \
-      '</query>'
-
+    body = File.read(File.expand_path('./fixtures/failed_response.xml', __dir__))
     stub_http_request(@invalid_ip, body)
 
     response = Ipgeobase.lookup(@invalid_ip)
